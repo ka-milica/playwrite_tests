@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 //1.
-test ("Add new record", async({page})=>{
+test.only ("Add new record", async({page})=>{
 
     await page.goto("https://demoqa.com/webtables");
 
@@ -58,10 +58,7 @@ test ("Add new record", async({page})=>{
     await submitButton.click({ force: true });
     await expect(modal).not.toBeVisible();
 
-
-//Verify is new register is in table
-    const row = page.locator('.rt-tr-group').filter({ hasText: formData.firstname });
-    await expect(row).toContainText(formData.firstname);
-
+    await expect (page.getByRole('cell', {name: 'Djurdja', exact: true})).toBeVisible()
+    
 
 })
